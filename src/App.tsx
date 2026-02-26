@@ -2,6 +2,7 @@ import "./App.css";
 import { useRef, useEffect, useState, useCallback } from "react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import { marked } from "marked";
 import Editor from "./components/editor";
 import Sidebar from "./components/sidebar";
 import PageToolbar from "./components/page-toolbar";
@@ -15,6 +16,7 @@ import {
   defaultAppState,
 } from "./storage";
 import { titleToSlug, ensureUniqueSlug } from "./slug";
+import aboutChitMd from "../ABOUT_CHIT.md?raw";
 
 function getNextId(pages: Page[], trash: Page[]): number {
   let max = 0;
@@ -49,15 +51,7 @@ function getAncestors(pages: Page[], pageId: string): Page[] {
 
 const ABOUT_ID = "about-chit";
 const DRAFT_ID = "__draft__";
-const ABOUT_HTML = `
-<h2>Welcome to Chit</h2>
-<p>Chit is a minimal, fast note-taking app inspired by the simplicity of Notion.</p>
-<h3>Features</h3>
-<ul><li>Slash commands — type <code>/</code> to insert blocks</li><li>Rich text — bold, italic, code, lists, and more</li><li>Multiple pages — organize your thoughts across pages</li><li>Sub-pages — nest pages inside other pages</li><li>Drag &amp; drop — reorder and reorganize your sidebar</li><li>Export — download as .txt, .md, or .pdf</li><li>Keyboard shortcuts — <code>Ctrl+N</code> for new page</li></ul>
-<h3>Getting started</h3>
-<p>Create a new page with the <strong>+</strong> button in the sidebar or press <code>Ctrl+N</code>. Start typing, or hit <code>/</code> to see available block types.</p>
-<p>Built with care. Enjoy writing.</p>
-`.trim();
+const ABOUT_HTML = (marked.parse(aboutChitMd.trim()) as string).trim();
 
 function ChitApp() {
   const location = useLocation();

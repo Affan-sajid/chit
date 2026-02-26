@@ -217,7 +217,6 @@ export default function PageToolbar({ onDelete }: PageToolbarProps) {
         {open === "export" && (
           <div className="toolbar-dropdown">
             <div className="toolbar-dropdown-header">
-              <img src="/logo.png" alt="" className="toolbar-dropdown-icon" aria-hidden />
               <span>Export</span>
             </div>
             <button className="toolbar-dropdown-item" onClick={exportTxt}>
