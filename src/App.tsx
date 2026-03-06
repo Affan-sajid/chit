@@ -176,6 +176,12 @@ function ChitApp() {
 
   useEffect(() => { setPickerOpen(false); }, [activeId]);
 
+  // Update document title to active note title
+  useEffect(() => {
+    const title = activePage?.title?.trim();
+    document.title = title ? `${title} — chit` : "chit";
+  }, [activePage?.title]);
+
   // Update favicon: use active page emoji if set, otherwise pencil.svg
   useEffect(() => {
     const link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
